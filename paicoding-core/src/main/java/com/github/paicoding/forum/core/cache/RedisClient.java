@@ -360,7 +360,8 @@ public class RedisClient {
         return template.execute(new RedisCallback<List<ImmutablePair<String, Double>>>() {
             @Override
             public List<ImmutablePair<String, Double>> doInRedis(RedisConnection connection) throws DataAccessException {
-                Set<RedisZSetCommands.Tuple> set = connection.zRangeWithScores(keyBytes(key), -n, -1);
+                // 获取倒序的zset，然后正序拿前n个
+                Set<RedisZSetCommands.Tuple> set = connection.zRevRangeWithScores(keyBytes(key), 0, n -1);
                 if (set == null) {
                     return Collections.emptyList();
                 }

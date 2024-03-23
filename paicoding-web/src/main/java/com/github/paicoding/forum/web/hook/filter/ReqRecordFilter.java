@@ -13,6 +13,7 @@ import com.github.paicoding.forum.service.sitemap.service.impl.SitemapServiceImp
 import com.github.paicoding.forum.service.statistics.service.StatisticsSettingService;
 import com.github.paicoding.forum.service.user.service.LoginService;
 import com.github.paicoding.forum.web.global.GlobalInitService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -45,6 +46,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @WebFilter(urlPatterns = "/*", filterName = "reqRecordFilter", asyncSupported = true)
+@RequiredArgsConstructor
 public class ReqRecordFilter implements Filter {
     private static Logger REQ_LOG = LoggerFactory.getLogger("req");
     /**
@@ -52,11 +54,8 @@ public class ReqRecordFilter implements Filter {
      */
     private static final String GLOBAL_TRACE_ID_HEADER = "g-trace-id";
 
-    @Autowired
-    private GlobalInitService globalInitService;
-
-    @Autowired
-    private StatisticsSettingService statisticsSettingService;
+    private final GlobalInitService globalInitService;
+    private final StatisticsSettingService statisticsSettingService;
 
     @Override
     public void init(FilterConfig filterConfig) {

@@ -4,6 +4,7 @@ import com.github.paicoding.forum.api.model.vo.statistics.dto.StatisticsDayDTO;
 import com.github.paicoding.forum.service.statistics.repository.dao.RequestCountDao;
 import com.github.paicoding.forum.service.statistics.repository.entity.RequestCountDO;
 import com.github.paicoding.forum.service.statistics.service.RequestCountService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,9 @@ import java.util.List;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class RequestCountServiceImpl implements RequestCountService {
-    @Autowired
-    private RequestCountDao requestCountDao;
+    private final RequestCountDao requestCountDao;
 
     @Override
     public RequestCountDO getRequestCount(String host) {

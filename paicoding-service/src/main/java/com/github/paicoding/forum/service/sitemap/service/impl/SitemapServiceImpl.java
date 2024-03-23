@@ -1,6 +1,8 @@
 package com.github.paicoding.forum.service.sitemap.service.impl;
 
+import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.github.paicoding.forum.api.model.context.ReqInfoContext;
 import com.github.paicoding.forum.api.model.enums.ArticleEventEnum;
 import com.github.paicoding.forum.api.model.event.ArticleMsgEvent;
 import com.github.paicoding.forum.api.model.vo.article.dto.SimpleArticleDTO;
@@ -14,6 +16,7 @@ import com.github.paicoding.forum.service.sitemap.model.SiteMapVo;
 import com.github.paicoding.forum.service.sitemap.model.SiteUrlVo;
 import com.github.paicoding.forum.service.sitemap.service.SitemapService;
 import com.github.paicoding.forum.service.statistics.service.CountService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
@@ -33,6 +36,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SitemapServiceImpl implements SitemapService {
     @Value("${view.site.host:https://paicoding.com}")
     private String host;
@@ -71,7 +75,7 @@ public class SitemapServiceImpl implements SitemapService {
     /**
      * fixme: 加锁初始化，更推荐的是采用分布式锁
      */
-    private synchronized void initSiteMap() {
+    private void initSiteMap() {
         long lastId = 0L;
         RedisClient.del(SITE_MAP_CACHE_KEY);
         while (true) {

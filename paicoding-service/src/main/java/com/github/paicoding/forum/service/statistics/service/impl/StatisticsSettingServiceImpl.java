@@ -11,6 +11,7 @@ import com.github.paicoding.forum.service.statistics.service.StatisticsSettingSe
 import com.github.paicoding.forum.service.user.service.UserFootService;
 import com.github.paicoding.forum.service.user.service.UserService;
 import com.github.paicoding.forum.service.user.service.conf.AiConfig;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,22 +27,13 @@ import java.util.List;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class StatisticsSettingServiceImpl implements StatisticsSettingService {
-
-    @Autowired
-    private RequestCountService requestCountService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ColumnService columnService;
-
-    @Autowired
-    private UserFootService userFootService;
-
-    @Autowired
-    private ArticleReadService articleReadService;
+    private final RequestCountService requestCountService;
+    private final UserService userService;
+    private final ColumnService columnService;
+    private final UserFootService userFootService;
+    private final ArticleReadService articleReadService;
 
     @Resource
     private AiConfig aiConfig;
